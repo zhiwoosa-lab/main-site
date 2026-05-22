@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Current Stage Tree</title>
+    <meta
+      name="description"
+      content="当前生活阶段树：2025年6月至今，南非约翰内斯堡。"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="quiet-header" aria-label="站点标识">
+      <a class="wordmark" href="./index.html" aria-label="返回首页">
+        <span class="wordmark-main">Life Tree</span>
+        <span class="wordmark-sub">current stage</span>
+      </a>
+      <nav class="quiet-nav" aria-label="主要入口">
+        <a href="./chronicle/index.html">Chronicle</a>
+      </nav>
+    </header>
+
+    <main class="current-stage">
+      <section class="stage-intro" aria-labelledby="stage-title">
+        <p class="time-tag">2025.6–Now</p>
+        <h1 id="stage-title">Johannesburg, South Africa</h1>
+        <p>
+          当前生活阶段。这里先不展开完整人生树，只观察正在生长的这一段：
+          家庭、身体、南非生活，以及仍然缓慢发生的语言学习。
+        </p>
+      </section>
+
+      <section class="tree-field" aria-label="当前阶段的树">
+        <div class="place-atmosphere" aria-hidden="true">
+          <span class="sun"></span>
+          <span class="ridge"></span>
+          <span class="city-line"></span>
+          <span class="veld"></span>
+        </div>
+
+        <svg class="current-tree" viewBox="0 0 820 760" role="img" aria-labelledby="tree-title tree-desc">
+          <title id="tree-title">Current Stage Tree</title>
+          <desc id="tree-desc">
+            A clickable current life stage tree. The trunk opens the chronicle page.
+          </desc>
+          <defs>
+            <linearGradient id="trunkCurrent" x1="0%" x2="100%" y1="0%" y2="100%">
+              <stop offset="0%" stop-color="#806a50" />
+              <stop offset="52%" stop-color="#5e4934" />
+              <stop offset="100%" stop-color="#91775c" />
+            </linearGradient>
+            <linearGradient id="branchCurrent" x1="0%" x2="100%" y1="0%" y2="100%">
+              <stop offset="0%" stop-color="#7e674c" />
+              <stop offset="100%" stop-color="#5c452f" />
+            </linearGradient>
+            <radialGradient id="leafCurrent" cx="36%" cy="24%" r="78%">
+              <stop offset="0%" stop-color="#a0a078" />
+              <stop offset="100%" stop-color="#68704f" />
+            </radialGradient>
+          </defs>
+
+          <a class="trunk-anchor" href="./chronicle/index.html" aria-label="打开 Chronicle 大事记页面">
+            <path
+              class="trunk"
+              d="M408 704
+                 C398 604 418 524 406 434
+                 C394 338 424 244 408 134
+                 C404 104 406 78 410 50"
+            />
+            <rect class="trunk-hit" x="358" y="64" width="104" height="632" rx="52" />
+          </a>
+
+          <g class="branches">
+            <path d="M408 154 C318 136 250 100 178 58" />
+            <path d="M412 168 C508 142 586 98 660 44" />
+            <path d="M404 244 C298 258 220 316 132 396" />
+            <path d="M410 272 C524 286 610 344 694 436" />
+            <path d="M406 390 C316 410 246 464 176 542" />
+            <path d="M410 440 C504 468 578 526 650 604" />
+          </g>
+
+          <g class="canopy" aria-hidden="true">
+            <ellipse cx="206" cy="168" rx="72" ry="112" transform="rotate(-42 206 168)" />
+            <ellipse cx="286" cy="92" rx="62" ry="104" transform="rotate(-24 286 92)" />
+            <ellipse cx="374" cy="76" rx="70" ry="122" transform="rotate(-6 374 76)" />
+            <ellipse cx="470" cy="82" rx="72" ry="124" transform="rotate(12 470 82)" />
+            <ellipse cx="566" cy="126" rx="66" ry="108" transform="rotate(30 566 126)" />
+            <ellipse cx="642" cy="206" rx="58" ry="96" transform="rotate(48 642 206)" />
+            <ellipse cx="176" cy="296" rx="76" ry="118" transform="rotate(-56 176 296)" />
+            <ellipse cx="280" cy="286" rx="80" ry="132" transform="rotate(-26 280 286)" />
+            <ellipse cx="392" cy="252" rx="84" ry="142" transform="rotate(-4 392 252)" />
+            <ellipse cx="506" cy="270" rx="82" ry="132" transform="rotate(18 506 270)" />
+            <ellipse cx="614" cy="330" rx="72" ry="112" transform="rotate(38 614 330)" />
+            <ellipse cx="238" cy="440" rx="66" ry="104" transform="rotate(-36 238 440)" />
+            <ellipse cx="342" cy="430" rx="70" ry="116" transform="rotate(-12 342 430)" />
+            <ellipse cx="456" cy="444" rx="72" ry="118" transform="rotate(10 456 444)" />
+            <ellipse cx="560" cy="476" rx="62" ry="102" transform="rotate(30 560 476)" />
+          </g>
+
+          <g class="trunk-label" aria-hidden="true">
+            <text x="410" y="318">2025.6–Now</text>
+            <text x="410" y="346">Johannesburg, South Africa</text>
+          </g>
+        </svg>
+
+        <a class="apple apple-red apple-daughter" href="./apple/index.html" aria-label="进入 Apple 的专属页面">
+          <span class="fruit"></span>
+          <span class="apple-note">
+            <strong>Apple</strong>
+            <em>正在南非茁壮成长</em>
+          </span>
+        </a>
+
+        <a class="apple apple-red apple-health" href="./health/index.html" aria-label="进入身材管理和健康管理页面">
+          <span class="fruit"></span>
+          <span class="apple-note">
+            <strong>Health Management</strong>
+            <em>体重下降与饮食重构</em>
+          </span>
+        </a>
+
+        <a class="apple apple-red apple-south-africa" href="./south-africa/index.html" aria-label="进入南非见闻页面">
+          <span class="fruit"></span>
+          <span class="apple-note">
+            <strong>South Africa Notes</strong>
+            <em>见闻、生活观察和记录</em>
+          </span>
+        </a>
+
+        <a class="apple apple-green apple-language" href="./language/index.html" aria-label="进入语言学习页面">
+          <span class="fruit"></span>
+          <span class="apple-note">
+            <strong>Language</strong>
+            <em>缓慢，但仍在成长</em>
+          </span>
+        </a>
+      </section>
+
+      <p class="tree-hint">
+        点击树干进入 Chronicle。点击苹果进入对应的人生节点。
+      </p>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
