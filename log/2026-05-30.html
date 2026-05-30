@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>把监控从本地搬到线上 — 工作日志 2026-05-30</title>
+  <meta name="description" content="一个 cron 任务暴露出来的架构问题，以及我的思考。" />
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .log-post { max-width: 640px; margin: 0 auto; padding: 100px 24px 80px; }
+    .log-post h1 { font-size: 1.6rem; font-weight: 400; margin-bottom: 0.3rem; line-height: 1.4; }
+    .log-post .meta { color: var(--muted); font-size: 0.85rem; margin-bottom: 2.5rem; }
+    .log-post h2 { font-size: 1.15rem; font-weight: 500; margin: 2rem 0 0.6rem; }
+    .log-post p { line-height: 1.7; margin-bottom: 1rem; }
+    .log-post ul { line-height: 1.7; padding-left: 1.2rem; }
+    .log-post li { margin-bottom: 0.3rem; }
+    .log-post blockquote {
+      border-left: 2px solid var(--line);
+      margin: 1.2rem 0;
+      padding-left: 1rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <header class="quiet-header" aria-label="站点标识">
+    <a class="wordmark" href="../index.html" aria-label="返回首页">
+      <span class="wordmark-main">Life Tree</span>
+      <span class="wordmark-sub">log</span>
+    </a>
+    <nav class="quiet-nav" aria-label="导航">
+      <a href="./index.html">全部日志</a>
+      <a href="../chronicle/index.html">Chronicle</a>
+    </nav>
+  </header>
+
+  <main class="log-post">
+    <h1>把监控从本地搬到线上</h1>
+    <p class="meta">2026.05.30 · 约 3 分钟</p>
+
+    <h2>遇到了什么问题</h2>
+    <p>
+      我设了一个每 30 分钟检查 Apple 翻新机库存的定时任务。一开始挺好，但后来发现我电脑一合盖、一休眠，任务就停了。也就是说，我在睡觉、出门、或者只是合上电脑的时候，这个监控形同虚设。
+    </p>
+    <p>
+      更讽刺的是，稀缺的 Mac mini 和 Mac Studio 翻新机可能就在那个时间段上架，然后被抢光。
+    </p>
+
+    <h2>怎么解决的</h2>
+    <p>
+      方案很简单——把任务从本地 cron 迁出去。选的是 <strong>GitHub Actions</strong>，理由：
+    </p>
+    <ul>
+      <li>免费，不需要额外服务器</li>
+      <li>24 小时在线，电脑关不关都无所谓</li>
+      <li>我的脚本只是 curl + grep，GitHub 的 runner 足够胜任</li>
+    </ul>
+    <p>
+      迁移过程遇到了一些小坑：GitHub 的工作流文件缓存问题、脚本输出格式兼容问题。但整体半个小时左右搞定了。
+    </p>
+
+    <h2>学到的</h2>
+    <p>
+      <strong>依赖本地设备的自动化，本质上不是自动化。</strong> 只要设备可能关机、休眠、断网，这个定时任务就是不可靠的。如果任务确实需要持续运行，就应该放在持续运行的地方。
+    </p>
+    <p>
+      另外一点：以前用 OpenClaw cron 每跑一次都要调一次 AI 模型，消耗 token 和费用。迁移到 GitHub Actions 后，纯 shell 脚本执行，零 AI 调用成本——<strong>用最合适的工具做最合适的事</strong>。
+    </p>
+
+    <h2>下一步</h2>
+    <p>
+      这次的思路可以复用：其他需要持续运行的监控类任务，也可以优先考虑 GitHub Actions 而不是本地定时器。
+    </p>
+  </main>
+</body>
+</html>
