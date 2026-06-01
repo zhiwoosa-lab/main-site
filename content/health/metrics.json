@@ -4,7 +4,6 @@
   "sync": {
     "source": "health-auto-export",
     "sourceLabel": "HealthAutoExport · 2026-05-28",
-    "rawFile": "/Users/AI/AIProjects/Health/Raw/HealthAutoExport-2026-05-28-2026-05-28.json",
     "futureSources": ["Apple Health export", "Shortcuts automation", "wearable CSV"]
   },
   "metrics": [
