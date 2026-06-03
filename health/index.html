@@ -3,10 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Health Management · Life Tree</title>
+    <title>Personal Health · Life Tree</title>
+    <meta
+      name="description"
+      content="个人健康分页：睡眠、步数、运动、体重、精力状态，以及长期健康日志。"
+    />
     <link rel="stylesheet" href="../styles.css" />
   </head>
-  <body class="detail-page">
+  <body class="health-page">
     <header class="quiet-header" aria-label="站点标识">
       <a class="wordmark" href="../index.html">
         <span class="wordmark-main">Life Tree</span>
@@ -14,17 +18,63 @@
       </a>
       <nav class="quiet-nav"><a href="../index.html">Back to tree</a></nav>
     </header>
-    <main class="detail-shell">
-      <p class="page-kicker">Red Apple · Body</p>
-      <h1>Health Management</h1>
-      <p>
-        这一颗苹果记录身材管理和健康管理：体重大幅降低，饮食结构发生显著变化。
-        后续这里可以承载体重曲线、饮食记录、运动策略和阶段复盘。
-      </p>
+
+    <main class="health-shell">
+      <section class="health-hero" aria-labelledby="health-title">
+        <div>
+          <p class="page-kicker">Red Apple · Body</p>
+          <h1 id="health-title">Personal Health</h1>
+          <p>
+            这里不是健身 App，而是一份身体状态的私人数字日志：
+            记录睡眠、运动、饮食、体重与精力，观察身体如何参与当前生活阶段。
+          </p>
+        </div>
+        <aside class="health-sync-card" aria-label="数据来源">
+          <span>Local health record</span>
+          <strong id="health-updated">读取中</strong>
+          <small id="health-source">JSON + Markdown</small>
+        </aside>
+      </section>
+
+      <section class="health-dashboard" aria-labelledby="dashboard-title">
+        <div class="section-heading">
+          <p class="page-kicker">Today / Recent</p>
+          <h2 id="dashboard-title">身体状态仪表盘</h2>
+        </div>
+        <div class="health-rings-panel" id="health-rings" aria-live="polite">
+          <p class="health-loading">正在读取活动三环...</p>
+        </div>
+        <div class="health-metrics" id="health-metrics" aria-live="polite">
+          <p class="health-loading">正在读取本地健康数据...</p>
+        </div>
+      </section>
+
+      <section class="health-timeline-section" aria-labelledby="timeline-title">
+        <div class="section-heading">
+          <p class="page-kicker">Journal</p>
+          <h2 id="timeline-title">健康时间线</h2>
+        </div>
+        <div class="health-timeline" id="health-timeline" aria-live="polite">
+          <p class="health-loading">正在读取 Markdown 日志...</p>
+        </div>
+      </section>
+
+      <section class="health-principles-section" aria-labelledby="principles-title">
+        <div class="section-heading">
+          <p class="page-kicker">Principles</p>
+          <h2 id="principles-title">长期健康原则</h2>
+        </div>
+        <article class="health-principles" id="health-principles" aria-live="polite">
+          <p class="health-loading">正在读取长期原则...</p>
+        </article>
+      </section>
+
       <div class="detail-links">
         <a href="../index.html">返回当前阶段树</a>
         <a href="../chronicle/index.html">查看 Chronicle</a>
       </div>
     </main>
+
+    <script src="./health.js?v=20260602"></script>
   </body>
 </html>

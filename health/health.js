@@ -25,6 +25,12 @@ const fieldLabels = {
   reflection: "健康反思",
 };
 
+const ringGoals = {
+  move: 700,
+  exercise: 60,
+  stand: 12,
+};
+
 document.documentElement.classList.add("js-ready");
 document.addEventListener("DOMContentLoaded", () => {
   loadHealthDashboard();
@@ -34,10 +40,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function loadHealthDashboard() {
   const container = document.querySelector("#health-metrics");
+  const ringsContainer = document.querySelector("#health-rings");
   try {
     const data = await fetchJson(healthPaths.metrics);
     document.querySelector("#health-updated").textContent = formatDate(data.updatedAt);
     document.querySelector("#health-source").textContent = data.sync?.sourceLabel || "Local JSON";
+
+    renderActivityRings(ringsContainer, data.metrics);
 
     container.innerHTML = data.metrics
       .map((metric) => {
@@ -57,7 +66,111 @@ async function loadHealthDashboard() {
       .join("");
   } catch (error) {
     renderError(container, "健康数据读取失败。请检查 content/health/metrics.json。", error);
+    renderError(ringsContainer, "活动三环读取失败。请检查 content/health/metrics.json。", error);
   }
+}
+
+function renderActivityRings(container, metrics) {
+  const metricMap = Object.fromEntries(metrics.map((metric) => [metric.id, metric]));
+  const moveValue = parseMetricNumber(metricMap.activeEnergy?.value);
+  const exerciseValue = parseMetricNumber(metricMap.exercise?.value);
+  const standValue = null;
+
+  const rings = [
+    {
+      id: "move",
+      label: "Move",
+      value: moveValue,
+      goal: ringGoals.move,
+      unit: "kcal",
+      radius: 86,
+      className: "ring-move",
+      missingText: "暂无数据",
+    },
+    {
+      id: "exercise",
+      label: "Exercise",
+      value: exerciseValue,
+      goal: ringGoals.exercise,
+      unit: "min",
+      radius: 66,
+      className: "ring-exercise",
+      missingText: "暂无数据",
+    },
+    {
+      id: "stand",
+      label: "Stand",
+      value: standValue,
+      goal: ringGoals.stand,
+      unit: "hr",
+      radius: 46,
+      className: "ring-stand",
+      missingText: "稍后补充",
+    },
+  ].map((ring) => {
+    const circumference = 2 * Math.PI * ring.radius;
+    const hasData = Number.isFinite(ring.value);
+    const progress = hasData ? Math.min(ring.value / ring.goal, 1) : 0;
+    const offset = circumference * (1 - progress);
+
+    return {
+      ...ring,
+      circumference,
+      hasData,
+      progress,
+      offset,
+      displayValue: hasData ? formatRingValue(ring.value) : ring.missingText,
+    };
+  });
+
+  container.innerHTML = `
+    <div class="rings-card">
+      <div class="rings-visual" aria-label="Apple Watch 风格活动三环">
+        <svg class="activity-rings" viewBox="0 0 220 220" role="img" aria-labelledby="rings-title rings-desc">
+          <title id="rings-title">Activity Rings</title>
+          <desc id="rings-desc">Move, Exercise, and Stand activity rings rendered from local health data.</desc>
+          ${rings
+            .map(
+              (ring) => `
+                <circle
+                  class="ring-track ${ring.hasData ? "" : "ring-track-empty"}"
+                  cx="110"
+                  cy="110"
+                  r="${ring.radius}"
+                ></circle>
+                <circle
+                  class="ring-progress ${ring.className} ${ring.hasData ? "" : "ring-no-data"}"
+                  cx="110"
+                  cy="110"
+                  r="${ring.radius}"
+                  style="--ring-length: ${ring.circumference}; --ring-offset: ${ring.offset};"
+                ></circle>
+              `,
+            )
+            .join("")}
+        </svg>
+        <div class="rings-center">
+          <strong>${rings[1].displayValue}</strong>
+          <span>Exercise</span>
+        </div>
+      </div>
+      <div class="rings-summary">
+        ${rings
+          .map(
+            (ring) => `
+              <div class="ring-row ${ring.hasData ? "" : "ring-row-empty"}">
+                <span class="ring-dot ${ring.className}" aria-hidden="true"></span>
+                <div>
+                  <strong>${ring.label}</strong>
+                  <small>${ring.displayValue}${ring.hasData ? ` / ${ring.goal} ${ring.unit}` : ""}</small>
+                </div>
+              </div>
+            `,
+          )
+          .join("")}
+      </div>
+    </div>
+  `;
 }
 
 async function loadHealthTimeline() {
@@ -91,13 +204,13 @@ async function loadHealthPrinciples() {
 }
 
 async function fetchJson(path) {
-  const response = await fetch(path);
+  const response = await fetch(path, { cache: "no-store" });
   if (!response.ok) throw new Error(`${response.status} ${path}`);
   return response.json();
 }
 
 async function fetchText(path) {
-  const response = await fetch(path);
+  const response = await fetch(path, { cache: "no-store" });
   if (!response.ok) throw new Error(`${response.status} ${path}`);
   return response.text();
 }
@@ -205,6 +318,18 @@ function formatDate(value) {
     month: "long",
     day: "numeric",
   }).format(date);
+}
+
+function parseMetricNumber(value) {
+  if (!value || value === "暂无数据") return null;
+  const normalized = String(value).replace(/,/g, "");
+  const match = normalized.match(/-?\d+(\.\d+)?/);
+  return match ? Number(match[0]) : null;
+}
+
+function formatRingValue(value) {
+  if (!Number.isFinite(value)) return "暂无数据";
+  return Number.isInteger(value) ? String(value) : value.toFixed(1).replace(/\.0$/, "");
 }
 
 function renderError(container, message, error) {
