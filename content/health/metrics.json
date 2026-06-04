@@ -1,25 +1,25 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-06-02",
+  "updatedAt": "2026-06-03",
   "sync": {
     "source": "health-auto-export",
-    "sourceLabel": "HealthAutoExport · 2026-06-02",
-    "rawFile": "/Users/AI/AIProjects/Health/Raw/HealthAutoExport-2026-06-02.json",
+    "sourceLabel": "HealthAutoExport · 2026-06-03",
+    "rawFile": "/Users/AI/AIProjects/Health/Raw/HealthAutoExport-2026-06-03.json",
     "futureSources": ["Apple Health export", "Shortcuts automation", "wearable CSV"]
   },
   "metrics": [
     {
       "id": "sleep",
       "label": "睡眠",
-      "value": "8h 18m",
-      "status": "improving",
-      "trend": "totalSleep: 8.3051 hr",
-      "note": "2026-06-02 Apple Watch 记录的总睡眠时长。"
+      "value": "6h 48m",
+      "status": "stable",
+      "trend": "totalSleep: 6.8041 hr",
+      "note": "2026-06-03 Apple Watch 记录的总睡眠时长。"
     },
     {
       "id": "steps",
       "label": "步数",
-      "value": "19,289",
+      "value": "12,133",
       "status": "active",
       "trend": "step_count",
       "note": "来自 Apple Watch Ultra 2 与 iPhone 的合并步数。"
@@ -27,7 +27,7 @@
     {
       "id": "exercise",
       "label": "运动时间",
-      "value": "133 min",
+      "value": "52 min",
       "status": "active",
       "trend": "apple_exercise_time",
       "note": "Apple 运动时间记录，反映当天达到运动强度的分钟数。"
@@ -35,23 +35,23 @@
     {
       "id": "weight",
       "label": "体重",
-      "value": "68.5 kg",
-      "status": "improving",
+      "value": "69.05 kg",
+      "status": "stable",
       "trend": "weight_body_mass",
       "note": "来自薄荷健康的身体质量记录。"
     },
     {
       "id": "bodyFat",
       "label": "体脂率",
-      "value": "20.1%",
-      "status": "improving",
+      "value": "21%",
+      "status": "stable",
       "trend": "body_fat_percentage",
       "note": "来自薄荷健康的体脂率记录。"
     },
     {
       "id": "restingHeartRate",
       "label": "静息心率",
-      "value": "54 bpm",
+      "value": "52 bpm",
       "status": "stable",
       "trend": "resting_heart_rate",
       "note": "Apple Watch Ultra 2 记录的静息心率。"
@@ -59,15 +59,15 @@
     {
       "id": "heartRateAverage",
       "label": "平均心率",
-      "value": "82 bpm",
-      "status": "active",
-      "trend": "heart_rate.Avg: 81.59 bpm",
+      "value": "65 bpm",
+      "status": "stable",
+      "trend": "heart_rate.Avg: 65.5 bpm",
       "note": "当天心率样本的平均值。"
     },
     {
       "id": "distance",
       "label": "步行/跑步距离",
-      "value": "15.86 km",
+      "value": "9.09 km",
       "status": "active",
       "trend": "walking_running_distance",
       "note": "来自 Apple Watch Ultra 2 与 iPhone 的移动距离。"
